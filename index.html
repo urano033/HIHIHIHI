@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Domanda importante</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: #fff0f5;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    h1 {
+      position: absolute;
+      top: 50px;
+      text-align: center;
+      width: 100%;
+      font-size: 2.5rem;
+    }
+
+    button {
+      position: fixed;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-block;
+      transform-origin: center center;
+    }
+
+    #yes {
+      background-color: #ff4d6d;
+      color: white;
+      left: 45%;
+      top: 60%;
+    }
+
+    #no {
+      background-color: #ccc;
+      left: 55%;
+      top: 60%;
+    }
+
+    /* Scritta finale */
+    #finalText {
+      display: none;
+      font-size: 3rem;
+      color: #ff4d6d;
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Starai per sempre con me?</h1>
+
+<button id="yes">YES</button>
+<button id="no">NO</button>
+
+<div id="finalText">HIHIHIHI lo sapevo</div>
+
+<script>
+  const noButton = document.getElementById("no");
+  const yesButton = document.getElementById("yes");
+  const finalText = document.getElementById("finalText");
+
+  let noScale = 1;
+  let yesScale = 1;
+
+  // NO che scappa
+  noButton.addEventListener("mouseenter", () => {
+    // NO diventa più piccolo
+    noScale -= 0.1;
+    if (noScale < 0.0) noScale = 0.0;
+    noButton.style.transform = `scale(${noScale})`;
+
+    // YES diventa più grande, fino a max 1.5
+    yesScale += 2.5;
+    if (yesScale > 35) yesScale = 35;
+    yesButton.style.transform = `scale(${yesScale})`;
+
+    // YES verso il centro
+    const centerX = window.innerWidth / 2 - yesButton.offsetWidth / 2;
+    const centerY = window.innerHeight / 2 - yesButton.offsetHeight / 2;
+    yesButton.style.left = centerX + "px";
+    yesButton.style.top = centerY + "px";
+
+    // NO si muove casualmente
+    noButton.style.bottom = "auto";
+    noButton.style.right = "auto";
+    const maxX = window.innerWidth - noButton.offsetWidth;
+    const maxY = window.innerHeight - noButton.offsetHeight;
+    noButton.style.left = Math.random() * maxX + "px";
+    noButton.style.top = Math.random() * maxY + "px";
+  });
+
+  // YES cliccato
+  yesButton.addEventListener("click", () => {
+    // Nascondi bottoni
+    yesButton.style.display = "none";
+    noButton.style.display = "none";
+    // Mostra la scritta
+    finalText.style.display = "block";
+  });
+</script>
+
+</body>
+</html>
